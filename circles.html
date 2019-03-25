@@ -1,0 +1,58 @@
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<title>Circles</title>
+		<link rel="stylesheet" type="text/css" href="circles.css">
+		<script type="text/javascript" src="paper-full.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.1/howler.js"></script>
+		<script type="text/paperscript" canvas="myCanvas">
+			var circles=[];
+			var sound1 = new Howl({
+			src: ['sounds/bubbles.mp3'],
+			volume: 0.8
+		});
+		var sound2 = new Howl({
+		src: ['sounds/clay.mp3'],
+		volume: 0.8
+	});
+
+	function onKeyDown(event) 
+	{
+	var maxPoint=new Point(view.size.width, view.size.height);
+	var randomPoint=Point.random();
+	var point=maxPoint*randomPoint;
+	// When a key is released, set the content of the text item: -->
+	var myCircle = new Path.Circle(point, 500);
+	if(event.key=="q")
+	{
+		sound1.play();
+		a.fillColor="blue";
+	}
+	if(event.key=="s")
+	{
+		sound2.play();
+		myCircle.fillColor="purple";
+	}
+	else
+	{
+		myCircle.fillColor="orange";
+	}
+	circles.push(myCircle);
+}
+
+
+function onFrame(event)
+{
+	for(var i=0; i<circles.length;i++)
+	{
+		circles[i].fillColor.hue +=1;
+		circles[i].scale(.9);
+	}
+
+}
+</script>
+</head>
+<body>
+	<canvas id="myCanvas" resize></canvas>
+</body>
+</html>
